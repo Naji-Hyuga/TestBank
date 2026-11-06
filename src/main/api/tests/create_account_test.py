@@ -11,7 +11,7 @@ class TestCreateAccount:
     def test_create_account(self, api_manager: ApiManager, credit_user_request: CreateUserRequest, db_session: Session):
         response = api_manager.user_steps.create_account(credit_user_request)
 
-        assert response.balance == 0
+        assert response.balance == 0, "Баланса нет, ошибка"
 
         account_from_db = Account.get_account_by_id(db_session, response.id)
 
@@ -22,5 +22,3 @@ class TestCreateAccount:
         api_manager.user_steps.create_account(credit_user_request)
         api_manager.user_steps.create_account(credit_user_request)
         api_manager.user_steps.create_account_extra_invalid(credit_user_request)
-
-

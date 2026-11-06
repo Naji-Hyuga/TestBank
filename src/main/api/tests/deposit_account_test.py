@@ -18,8 +18,8 @@ class TestDepositAccount:
         deposit_account_request = DepositAccountRequest(accountId=create_account_request.id)
         response = api_manager.user_steps.deposit_account_request(credit_user_request, deposit_account_request)
 
-        assert deposit_account_request.accountId == response.id
-        assert deposit_account_request.amount == response.balance
+        assert deposit_account_request.accountId == response.id, "Id счета не совпадает"
+        assert deposit_account_request.amount == response.balance, "Баланс не изменился, ошибка"
 
         transaction_from_db = Transaction.get_transaction_by_to_account_id(db_session, response.id)
 

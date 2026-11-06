@@ -25,8 +25,8 @@ class TestCreditRepay:
         )
         response = api_manager.user_steps.credit_repay_request(credit_user_request, repay_request)
 
-        assert repay_request.creditId == response.creditId
-        assert repay_request.amount == response.amountDeposited
+        assert repay_request.creditId == response.creditId, "Id кредита не совпадает"
+        assert repay_request.amount == response.amountDeposited, "Сумма оплаты кредита не совпадает"
 
         credit_from_db = Credit.get_credit_by_id(db_session, response.creditId)
 
@@ -50,7 +50,7 @@ class TestCreditRepay:
 
         credit_from_db = Credit.get_credit_by_id(db_session, credit_request_fix.creditId)
 
-        assert credit_from_db.balance == -(credit_request_fix.balance)
+        assert credit_from_db.balance == -(credit_request_fix.balance), "Баланс изменился, ошибка"
 
 
 

@@ -16,8 +16,8 @@ class TestCreditRequest:
         credit_request = CreditRequestRequest(accountId=create_account_request.id)
         response = api_manager.user_steps.credit_request(credit_user_request, credit_request)
 
-        assert credit_request.accountId == response.id
-        assert response.balance == credit_request.amount
+        assert credit_request.accountId == response.id, "Id счета не совпадает"
+        assert response.balance == credit_request.amount, "Баланс не изменился, ошибка"
 
         credit_from_db = Credit.get_credit_by_id(db_session, response.creditId)
 

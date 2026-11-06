@@ -25,8 +25,8 @@ class TestTransferAccount:
         )
         response = api_manager.user_steps.transfer_account_request(credit_user_request, transfer_account_request)
 
-        assert transfer_account_request.fromAccountId == response.fromAccountId
-        assert transfer_account_request.toAccountId == response.toAccountId
+        assert transfer_account_request.fromAccountId == response.fromAccountId, "Id счета с которого были отправлены средства не совпадает"
+        assert transfer_account_request.toAccountId == response.toAccountId, "Id счета в который были отправлены средства не совпадает"
         assert response.fromAccountIdBalance == deposit_account_request.amount - transfer_account_request.amount
 
         transaction_from_db = Transaction.get_transaction_by_from_account_id(db_session, transfer_account_request.fromAccountId)
